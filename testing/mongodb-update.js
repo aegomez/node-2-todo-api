@@ -15,23 +15,23 @@ MongoClient.connect(
     const db = client.db('TodoApp');
 
     /* Todos */
-    // db.collection('Todos').findOneAndUpdate(
-    //   { _id: new ObjectID("5d533c666e3275932ade0def") },
-    //   {
-    //     $set: {
-    //       completed: true
-    //     }
-    //   },
-    //   { returnOriginal: false }
-    // )
-    // .then(result => {
-    //   log('Document successfully updated', result);
-    // })
-    // .catch(err => {
-    //   log('Unable to update document', err);
-    // });
+    db.collection('Todos').findOneAndUpdate(
+      { _id: new ObjectID("5d533c666e3275932ade0def") },
+      {
+        $set: {
+          completed: true
+        }
+      },
+      { returnOriginal: false }
+    )
+    .then(result => {
+      log('Document successfully updated', result);
+    })
+    .catch(err => {
+      log('Unable to update document', err);
+    });
     
-    // client.close();
+    client.close();
 
     /* Users */
     db.collection('Users').findOneAndUpdate(

@@ -14,7 +14,7 @@ MongoClient.connect(
 
     const db = client.db('TodoApp');
 
-    // /* Delete all Todos with text = 'Eat lunch' */
+    /* Delete all Todos with text = 'Eat lunch' */
     db.collection('Todos')
     .deleteMany({
       text: 'Eat lunch'
@@ -22,7 +22,7 @@ MongoClient.connect(
     .then(log)
     .catch(log);
 
-    // /* Delete the first document that fits the criteria */
+    /* Delete the first document that fits the criteria */
     db.collection('Todos')
     .deleteOne({
       text: 'Walk the dog'
