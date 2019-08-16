@@ -23,12 +23,8 @@ app.post('/todos', (req, res) => {
   });
 
   todo.save()
-  .then(doc => {
-    res.send(doc);
-  })
-  .catch(err => {
-    res.status(400).send(err);
-  });
+  .then(doc => res.send(doc))
+  .catch(err => res.status(400).send(err));
 });
 
 app.get('/todos', (req, res) => {
@@ -41,15 +37,28 @@ app.get('/todos/:id', (req, res) => {
   let id = req.params.id;
 
   if (!ObjectId.isValid(id)) {
-    return res.status(404).send('F');
+    return res.status(404).send('Not valid');
   }
 
   Todo.findById(id)
   .then(todo => todo ?
     res.send({ todo }) :
-    res.status(404).send('F'))
-  .catch(err => res.status(400).send());
+    res.status(404).send('Not found'))
+  .catch(err => res.status(400).send('DB error'));
+});
 
+app.delete('/todos/:id', (req, res) => {
+  let id = req.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(404).send('Not valid');
+  }
+
+  Todo.findByIdAndRemove(id)
+  .then(todo => todo ?
+    res.send({ todo }) :
+    res.status(404).send('Not found'))
+  .catch(err => res.status(400).send('DB error'));
 });
 
 app.listen(PORT, () => {
