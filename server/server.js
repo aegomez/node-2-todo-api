@@ -7,6 +7,7 @@ const pick = require('lodash/pick');
 const isBoolean = require('lodash/isBoolean');
 
 // local imports
+require('./config/config');
 const { mongoose } = require('./db/mongoose');
 const { Todo } = require('./models/todo');
 const { User } = require('./models/user');
@@ -15,7 +16,6 @@ const { User } = require('./models/user');
 const log = (...args) => console.log('**', ...args);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // middleware
 app.use(bodyParser.json());
@@ -91,8 +91,8 @@ app.patch('/todos/:id', (req, res) => {
   .catch(err => res.status(400).send('DB error'));
 });
 
-app.listen(PORT, () => {
-  log('Started on port', PORT);
+app.listen(process.env.PORT, () => {
+  log('Started on port', process.env.PORT);
 });
 
 module.exports = { app };
